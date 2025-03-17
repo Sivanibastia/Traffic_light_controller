@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+module traffic_light_controller_tbl();
+reg clk, reset_n, Sa, Sb;
+wire Ra, Ya, Ga;
+wire Rb, Yb, Gb;
+
+traffic_light_controller CIRLO (
+.clk(clk),
+.reset_n(reset_n),
+.Sa(Sa),
+.Sb(Sb),
+.Ra(Ra),
+.Ya(Ya),
+.Ga(Ga),
+.Rb(Rb),
+.Yb(Yb),
+.Gb(Gb));
+
+wire [1:0] light_A, light_B;
+
+localparam R = 0;
+localparam Y = 1;
+localparam G = 2;
+
+assign light_A = Ra? R: Ya ? Y: Ga? G: light_A;
+assign light_B = Rb? R: Yb ? Y: Gb? G: light_B;
+
+localparam T = 10;
+always
+begin
+clk = 1'b0;
+#(T / 2);
+clk = 1'b1;
+#(T / 2);
+end
+initial 
+begin
+        reset_n = 1'b0;
+        Sa = 0;
+        Sb = 0;
+        #20;
+
+        reset_n = 1'b1; // Release Reset
+        #50;
+        Sa = 0; Sb = 1; #100;  
+        Sa = 1; Sb = 1; #100;  
+        Sa = 0; Sb = 1; #100;
+        Sa = 1; Sb = 0; #100;
+        #200;
+    end
+endmodule
