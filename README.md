@@ -12,7 +12,8 @@ The system manages traffic lights for two streets (A & B) based on vehicle prese
 ✅ Flexible Green Light Extension based on vehicle presence.
 ✅ Verilog Implementation & Simulation Testbench.
 
-Traffic Light Control Logic: Streets & Sensors:
+Traffic Light Control Logic:
+Streets & Sensors:
 Street A (Main Street): Default green unless a car is detected on Street B.
 Street B (Side Street): Green light only when activated by a car sensor.
 Timing Rules:
